@@ -1,0 +1,7 @@
+---
+- name: AWS
+  hosts: all
+  tasks:
+      - name: ping pong
+        ping:
+
