@@ -6,4 +6,11 @@
         ping:
       - name: Upgrade currently installed packages
         apt: "upgrade=dist state=present update_cache=true cache_valid_time=600"
+      - name: Install useful packages
+        apt: "name={{ item }} state=present"
+        with_items:
+           - curl
+           - telnet
+           - wget
+           - tmux
 
