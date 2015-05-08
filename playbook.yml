@@ -45,6 +45,7 @@
       - apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
       - apt: name=newrelic-sysmond state=present update_cache=yes
       - command: nrsysmond-config --set license_key=9a3465dc990aa65ee1037041a7d0f770ef428cfd
+      - user: name=newrelic groups=docker state=present
       - service: name=newrelic-sysmond state=restarted
 
       - name: Redis Data
