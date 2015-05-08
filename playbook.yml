@@ -47,3 +47,45 @@
       - command: nrsysmond-config --set license_key=9a3465dc990aa65ee1037041a7d0f770ef428cfd
       - service: name=newrelic-sysmond state=restarted
 
+      - name: Redis Data
+        docker:
+            name: redis-data
+            image: busybox
+            state: present
+            volumes:
+            - /data
+      - name: Redis
+        docker:
+            name: redis
+            hostname: redis
+            image: redis
+            command: redis-server --appendonly yes
+            state: started
+            restart_policy: always
+            pull: always
+            ports:
+            - "6379:6379"
+            volumes_from:
+            - redis-data
+
+      - name: RabbitMQ Data
+        docker:
+            name: rabbitmq-data
+            image: busybox
+            state: present
+            volumes:
+            - /var/lib/rabbitmq
+      - name: RabbitMQ
+        docker:
+            name: rabbitmq
+            hostname: rabbitmq
+            image: rabbitmq:management
+            state: started
+            restart_policy: always
+            pull: always
+            ports:
+            - "5672:5672"
+            - "15672:15672"
+            volumes_from:
+            - rabbitmq-data
+
