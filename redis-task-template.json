@@ -24,6 +24,15 @@
             "image": "redis",
             "essential": true,
             "memory": 128,
+            "command": [
+                "redis-server --appendonly yes"
+            ],
+            "portMappings": [
+                {
+                    "containerPort": 6379,
+                    "hostPort": 6379
+                }
+            ],
             "volumesFrom": [
                 {
                     "sourceContainer": "redis-data"
