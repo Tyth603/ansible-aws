@@ -1,0 +1,34 @@
+{
+    "family": "Redis",
+    "volumes": [
+        {
+            "name": "redis-data",
+            "host": {}
+        }
+    ],
+    "containerDefinitions": [
+        {
+            "name": "redis-data",
+            "image": "busybox",
+            "essential": false,
+            "memory": 32,
+            "mountPoints": [
+                {
+                    "sourceVolume": "redis-data",
+                    "containerPath": "/data"
+                } 
+            ] 
+        },
+        {
+            "name": "redis",
+            "image": "redis",
+            "essential": true,
+            "memory": 128,
+            "volumesFrom": [
+                {
+                    "sourceContainer": "redis-data"
+                }
+            ]
+        }
+    ]
+}
